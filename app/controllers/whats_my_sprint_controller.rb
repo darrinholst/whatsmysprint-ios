@@ -45,9 +45,9 @@ class WhatsMySprintController < UIViewController
   def layout_subviews
     view.addConstraints(build_visual_constraint("H:|-[sprint_label]-|"))
     view.addConstraints(build_visual_constraint("H:|-[starts_label(==ends_label)]-1-[separator_label(15)]-1-[ends_label]-|"))
-    view.addConstraints(build_visual_constraint("V:|[sprint_label]-[starts_label(==height)]-|"))
-    view.addConstraints(build_visual_constraint("V:|[sprint_label]-[separator_label(==height)]-|"))
-    view.addConstraints(build_visual_constraint("V:|[sprint_label]-[ends_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-[sprint_label]-1-[starts_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-[sprint_label]-1-[separator_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-[sprint_label]-1-[ends_label(==height)]-|"))
   end
 
   def build_label(attributes)
@@ -73,7 +73,7 @@ class WhatsMySprintController < UIViewController
     }
 
     metrics = {
-      "height"=> 80
+      "height"=> 20
     }
 
     NSLayoutConstraint.constraintsWithVisualFormat(asciiArt, options: 0, metrics: metrics, views: views)
