@@ -44,7 +44,7 @@ class WhatsMySprintController < UIViewController
 
   def layout_subviews
     view.addConstraints(build_visual_constraint("H:|-[sprint_label]-|"))
-    view.addConstraints(build_visual_constraint("H:|-[starts_label(==ends_label)]-[separator_label]-[ends_label]-|"))
+    view.addConstraints(build_visual_constraint("H:|-[starts_label(==ends_label)]-1-[separator_label(15)]-1-[ends_label]-|"))
     view.addConstraints(build_visual_constraint("V:|[sprint_label]-[starts_label(==height)]-|"))
     view.addConstraints(build_visual_constraint("V:|[sprint_label]-[separator_label(==height)]-|"))
     view.addConstraints(build_visual_constraint("V:|[sprint_label]-[ends_label(==height)]-|"))
@@ -55,6 +55,7 @@ class WhatsMySprintController < UIViewController
     label.translatesAutoresizingMaskIntoConstraints = false
     label.textColor = "#333".to_color
     label.font = UIFont.systemFontOfSize(20)
+    #label.backgroundColor = "#07f".to_color
 
     attributes.each do |k, v|
       label.send("#{k}=", v)
