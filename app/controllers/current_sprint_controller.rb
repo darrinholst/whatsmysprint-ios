@@ -1,25 +1,24 @@
-class WhatsMySprintController < UIViewController
-  TITLE = "What's My Sprint"
+class CurrentSprintController < UIViewController
+  TITLE = "Current Sprint"
 
   def viewDidLoad
     super
+    setup_view
+    setup_subviews
+    show_current_sprint
+  end
+
+  private
+
+  def setup_view
     self.title = TITLE
     view.backgroundColor = "white".to_color
     navigationController.navigationBar.tintColor = "#126116".to_color
-
-    @spinner = UIActivityIndicatorView.alloc.initWithFrame(CGRectMake(0, 0, 20, 20))
-    @refresh_button = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemRefresh, target:self, action: "refresh")
   end
 
-  def viewWillAppear(animated)
-    super
-
-    @view_initialized ||= begin
-      add_subviews
-      layout_subviews
-      show_current_sprint
-      true
-    end
+  def setup_subviews
+    add_subviews
+    layout_subviews
   end
 
   def add_subviews
@@ -55,7 +54,7 @@ class WhatsMySprintController < UIViewController
     label.translatesAutoresizingMaskIntoConstraints = false
     label.textColor = "#333".to_color
     label.font = UIFont.systemFontOfSize(20)
-    #label.backgroundColor = "#07f".to_color
+    #label.layer.setBorderWidth(1.0)
 
     attributes.each do |k, v|
       label.send("#{k}=", v)
@@ -99,16 +98,24 @@ class WhatsMySprintController < UIViewController
   end
 
   def start_spinning
-    navigationItem.setRightBarButtonItem(UIBarButtonItem.alloc.initWithCustomView(@spinner))
-    @spinner.startAnimating
+    navigationItem.setRightBarButtonItem(UIBarButtonItem.alloc.initWithCustomView(spinner))
+    spinner.startAnimating
   end
 
   def stop_spinning
-    navigationItem.setRightBarButtonItem(@refresh_button)
+    navigationItem.setRightBarButtonItem(refresh_button)
   end
 
   def refresh
     show_current_sprint
+  end
+
+  def spinner
+    spinner ||= UIActivityIndicatorView.alloc.initWithFrame(CGRectMake(0, 0, 20, 20))
+  end
+
+  def refresh_button
+    @refresh_button ||= UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemRefresh, target:self, action: "refresh")
   end
 end
 
