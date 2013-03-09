@@ -1,25 +1,15 @@
-class CurrentSprintController < UIViewController
+class CurrentSprintController < TabController
   TITLE = "Current Sprint"
 
   def viewDidLoad
     super
-    setup_view
-    setup_subviews
+    self.title = TITLE
+    add_subviews
+    layout_subviews
     show_current_sprint
   end
 
   private
-
-  def setup_view
-    self.title = TITLE
-    view.backgroundColor = "white".to_color
-    navigationController.navigationBar.tintColor = "#126116".to_color
-  end
-
-  def setup_subviews
-    add_subviews
-    layout_subviews
-  end
 
   def add_subviews
     view.addSubview(@sprint_label = build_label({
@@ -44,9 +34,9 @@ class CurrentSprintController < UIViewController
   def layout_subviews
     view.addConstraints(build_visual_constraint("H:|-[sprint_label]-|"))
     view.addConstraints(build_visual_constraint("H:|-[starts_label(==ends_label)]-1-[separator_label(15)]-1-[ends_label]-|"))
-    view.addConstraints(build_visual_constraint("V:|-[sprint_label]-1-[starts_label(==height)]-|"))
-    view.addConstraints(build_visual_constraint("V:|-[sprint_label]-1-[separator_label(==height)]-|"))
-    view.addConstraints(build_visual_constraint("V:|-[sprint_label]-1-[ends_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[starts_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[separator_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[ends_label(==height)]-|"))
   end
 
   def build_label(attributes)
@@ -111,7 +101,7 @@ class CurrentSprintController < UIViewController
   end
 
   def spinner
-    spinner ||= UIActivityIndicatorView.alloc.initWithFrame(CGRectMake(0, 0, 20, 20))
+    @spinner ||= UIActivityIndicatorView.alloc.initWithFrame(CGRectMake(0, 0, 32, 20))
   end
 
   def refresh_button

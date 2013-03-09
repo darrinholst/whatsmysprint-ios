@@ -1,20 +1,27 @@
-class AllSprintsController < UITableViewController
+class AllSprintsController < TabController
   TITLE = "All Sprints"
   REUSE_IDENTIFIER = "CELL_IDENTIFIER"
 
   def viewDidLoad
     super
-    setup_view
+    self.title = TITLE
     @sprints = []
   end
 
   def viewWillAppear(animated)
     super
 
+    @view_setup ||= begin
+      view.addSubview(@tableView = UITableView.alloc.initWithFrame(view.bounds))
+      @tableView.dataSource = self
+      @tableView.delegate = self
+      true
+    end
+
     Sprint.all(
       -> (sprints) {
         @sprints = sprints
-        tableView.reloadData
+        @tableView.reloadData
       },
 
       -> (message) {
@@ -24,12 +31,6 @@ class AllSprintsController < UITableViewController
   end
 
   private
-
-  def setup_view
-    self.title = TITLE
-    view.backgroundColor = "white".to_color
-    navigationController.navigationBar.tintColor = "#126116".to_color
-  end
 
   def tableView(tableView, numberOfRowsInSection: section)
     @sprints.size

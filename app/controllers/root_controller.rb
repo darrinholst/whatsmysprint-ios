@@ -10,10 +10,27 @@ class RootController < UITabBarController
     self
   end
 
+  def viewWillAppear(animated)
+    super
+    view.addGestureRecognizer(slidingViewController.panGesture)
+    view.layer.shadowOpacity = 0.75
+    view.layer.shadowRadius = 10.0
+    view.layer.shadowColor = UIColor.blackColor.CGColor
+    slidingViewController.setAnchorRightRevealAmount(180.0)
+
+    unless slidingViewController.underLeftViewController.isKindOfClass(MenuController.class)
+      slidingViewController.underLeftViewController = MenuController.alloc.initWithNibName(nil, bundle: nil)
+    end
+  end
+
+  private
+
   def controller(clazz, image, index)
     controller = clazz.alloc.initWithNibName(nil, bundle: nil)
     controller.tabBarItem = UITabBarItem.alloc.initWithTitle(clazz::TITLE, image: UIImage.imageNamed(image), tag: index)
     UINavigationController.alloc.initWithRootViewController(controller)
   end
+
 end
+
 
