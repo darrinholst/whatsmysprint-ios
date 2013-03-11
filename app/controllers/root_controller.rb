@@ -1,6 +1,6 @@
 class RootController < UITabBarController
-  def initWithNibName(name, bundle: bundle)
-    super
+  def init
+    self.initWithNibName(nil, bundle: nil)
 
     self.viewControllers = [
       controller(CurrentSprintController, "128-bone", 1),
@@ -19,14 +19,14 @@ class RootController < UITabBarController
     slidingViewController.setAnchorRightRevealAmount(180.0)
 
     unless slidingViewController.underLeftViewController.isKindOfClass(MenuController.class)
-      slidingViewController.underLeftViewController = MenuController.alloc.initWithNibName(nil, bundle: nil)
+      slidingViewController.underLeftViewController = MenuController.alloc.init
     end
   end
 
   private
 
   def controller(clazz, image, index)
-    controller = clazz.alloc.initWithNibName(nil, bundle: nil)
+    controller = clazz.alloc.init
     controller.tabBarItem = UITabBarItem.alloc.initWithTitle(clazz::TITLE, image: UIImage.imageNamed(image), tag: index)
     UINavigationController.alloc.initWithRootViewController(controller)
   end

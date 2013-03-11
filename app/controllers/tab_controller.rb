@@ -1,4 +1,8 @@
 class TabController < UIViewController
+  def init
+    self.initWithNibName(nil, bundle: nil)
+  end
+
   def viewDidLoad
     super
     view.backgroundColor = "white".to_color

@@ -1,6 +1,10 @@
 class MenuController < UITableViewController
   REUSE_IDENTIFIER = "CELL_IDENTIFIER"
 
+  def init
+    self.initWithNibName(nil, bundle: nil)
+  end
+
   def viewDidLoad
     super
     @data = ["#EPIC", "#BOOM"]
