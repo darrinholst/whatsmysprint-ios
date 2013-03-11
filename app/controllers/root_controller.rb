@@ -5,6 +5,7 @@ class RootController < UITabBarController
     self.viewControllers = [
       controller(CurrentSprintController, "128-bone", 1),
       controller(AllSprintsController, "109-chicken", 2),
+      controller(MapController, "82-dog-paw", 3)
     ]
 
     self

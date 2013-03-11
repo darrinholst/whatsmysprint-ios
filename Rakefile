@@ -9,7 +9,7 @@ Motion::Project::App.setup do |app|
   app.name = 'Wuz Ma Sprint'
   app.prerendered_icon = true
   app.detect_dependencies = true
-  #app.files_dependencies 'app/controllers/current_sprint_controller.rb' => 'app/controllers/tab_controller.rb'
+  app.frameworks = ["CoreGraphics", "Foundation", "UIKit", "MapKit"]
 
   app.pods do
     pod 'ECSlidingViewController'
