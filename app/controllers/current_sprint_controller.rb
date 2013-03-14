@@ -1,4 +1,6 @@
-class CurrentSprintController < TabController
+class CurrentSprintController < UIViewController
+  include Controller
+
   TITLE = "Current Sprint"
 
   def viewDidLoad

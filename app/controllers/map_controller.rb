@@ -1,4 +1,6 @@
-class MapController < TabController
+class MapController < UIViewController
+  include Controller
+
   TITLE = "WtfAmI?"
 
   def viewDidLoad

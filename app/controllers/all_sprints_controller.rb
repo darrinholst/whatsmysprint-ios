@@ -1,4 +1,6 @@
-class AllSprintsController < TabController
+class AllSprintsController < UITableViewController
+  include Controller
+
   TITLE = "All Sprints"
   REUSE_IDENTIFIER = "CELL_IDENTIFIER"
 
@@ -6,31 +8,42 @@ class AllSprintsController < TabController
     super
     self.title = TITLE
     @sprints = []
+
+    @refresh = UIRefreshControl.alloc.init
+    @refresh.attributedTitle = NSAttributedString.alloc.initWithString("Pull to refresh")
+    self.refreshControl = @refresh
+    self.refreshControl.tintColor = "#126116".to_color
+    self.refreshControl.addTarget(self, action: :loadData, forControlEvents:UIControlEventValueChanged)
   end
 
   def viewWillAppear(animated)
     super
+    loadData
+  end
 
-    @view_setup ||= begin
-      view.addSubview(@tableView = UITableView.alloc.initWithFrame(view.bounds))
-      @tableView.dataSource = self
-      @tableView.delegate = self
-      true
-    end
+  private
+
+  def loadData
+    @refresh.attributedTitle = NSAttributedString.alloc.initWithString("Refreshing")
 
     Sprint.all(
       -> (sprints) {
+        stopRefreshing
         @sprints = sprints
-        @tableView.reloadData
+        tableView.reloadData
       },
 
       -> (message) {
+        stopRefreshing
         App.alert(message)
       }
     )
   end
 
-  private
+  def stopRefreshing
+    @refresh.endRefreshing
+    @refresh.attributedTitle = NSAttributedString.alloc.initWithString("Pull to refresh")
+  end
 
   def tableView(tableView, numberOfRowsInSection: section)
     @sprints.size

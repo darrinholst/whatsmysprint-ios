@@ -1,4 +1,4 @@
-class TabController < UIViewController
+module Controller
   def init
     self.initWithNibName(nil, bundle: nil)
   end
@@ -23,4 +23,3 @@ class TabController < UIViewController
     slidingViewController.anchorTopViewTo(ECRight)
   end
 end
-
