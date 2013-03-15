@@ -14,5 +14,8 @@ Motion::Project::App.setup do |app|
   app.pods do
     pod 'ECSlidingViewController'
   end
+
+  app.vendor_project('vendor/KMLParser', :static)
 end
+
 
