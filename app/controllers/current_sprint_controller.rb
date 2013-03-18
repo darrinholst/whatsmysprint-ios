@@ -1,6 +1,4 @@
 class CurrentSprintController < UIViewController
-  include Controller
-
   TITLE = "Current Sprint"
 
   def viewDidLoad
@@ -15,30 +13,34 @@ class CurrentSprintController < UIViewController
 
   def add_subviews
     view.addSubview(@sprint_label = build_label({
+      accessibilityLabel: "Current Sprint",
       font: UIFont.systemFontOfSize(50),
       textAlignment: UITextAlignmentCenter,
       numberOfLines: 0
     }))
 
     view.addSubview(@starts_label = build_label({
+      accessibilityLabel: "Starts On",
       textAlignment: UITextAlignmentRight
     }))
 
     view.addSubview(@separator_label = build_label({
+      accessibilityLabel: "Date Separator",
       textAlignment: UITextAlignmentCenter
     }))
 
     view.addSubview(@ends_label = build_label({
+      accessibilityLabel: "Ends On",
       textAlignment: UITextAlignmentLeft
     }))
   end
 
   def layout_subviews
     view.addConstraints(build_visual_constraint("H:|-[sprint_label]-|"))
-    view.addConstraints(build_visual_constraint("H:|-[starts_label(==ends_label)]-1-[separator_label(15)]-1-[ends_label]-|"))
-    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[starts_label(==height)]-|"))
-    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[separator_label(==height)]-|"))
-    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[ends_label(==height)]-|"))
+    view.addConstraints(build_visual_constraint("H:|-[starts_label(==ends_label)]-1-[separator_label(15)]-1-[ends_label]-|", NSLayoutFormatAlignAllBaseline))
+    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[starts_label(==20)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[separator_label(==20)]-|"))
+    view.addConstraints(build_visual_constraint("V:|-10-[sprint_label]-10-[ends_label(==20)]-|"))
   end
 
   def build_label(attributes)
@@ -55,7 +57,7 @@ class CurrentSprintController < UIViewController
     label
   end
 
-  def build_visual_constraint(asciiArt)
+  def build_visual_constraint(asciiArt, options = 0)
     views = {
       "sprint_label" => @sprint_label,
       "starts_label" => @starts_label,
@@ -63,11 +65,7 @@ class CurrentSprintController < UIViewController
       "ends_label" => @ends_label
     }
 
-    metrics = {
-      "height"=> 20
-    }
-
-    NSLayoutConstraint.constraintsWithVisualFormat(asciiArt, options: 0, metrics: metrics, views: views)
+    NSLayoutConstraint.constraintsWithVisualFormat(asciiArt, options: options, metrics: nil, views: views)
   end
 
   def show_current_sprint

@@ -3,9 +3,9 @@ class RootController < UITabBarController
     self.initWithNibName(nil, bundle: nil)
 
     self.viewControllers = [
-      controller(CurrentSprintController, "128-bone", 1),
-      controller(AllSprintsController, "109-chicken", 2),
-      controller(MapController, "82-dog-paw", 3)
+      buildController(CurrentSprintController, "128-bone", 1),
+      buildController(AllSprintsController, "109-chicken", 2),
+      buildController(MapController, "82-dog-paw", 3)
     ]
 
     self
@@ -26,12 +26,28 @@ class RootController < UITabBarController
 
   private
 
-  def controller(clazz, image, index)
-    controller = clazz.alloc.init
+  def buildController(clazz, image, index)
+    controller = clazz.alloc.initWithNibName(nil, bundle: nil)
     controller.tabBarItem = UITabBarItem.alloc.initWithTitle(clazz::TITLE, image: UIImage.imageNamed(image), tag: index)
-    UINavigationController.alloc.initWithRootViewController(controller)
+    controller.navigationItem.setLeftBarButtonItem(menuButton)
+
+    navController = UINavigationController.alloc.initWithRootViewController(controller)
+    navController.navigationBar.tintColor = "#126116".to_color
+    navController.view.backgroundColor = "white".to_color
+
+    navController
   end
 
+  def menuButton
+    @menu_button ||= begin
+      image = UIImage.imageNamed("menu")
+      UIBarButtonItem.alloc.initWithImage(image, style: UIBarButtonItemStylePlain, target: self, action: "show_menu")
+    end
+  end
+
+  def show_menu
+    slidingViewController.anchorTopViewTo(ECRight)
+  end
 end
 
 

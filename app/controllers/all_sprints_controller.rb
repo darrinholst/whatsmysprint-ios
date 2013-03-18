@@ -1,6 +1,4 @@
 class AllSprintsController < UITableViewController
-  include Controller
-
   TITLE = "All Sprints"
   REUSE_IDENTIFIER = "CELL_IDENTIFIER"
 

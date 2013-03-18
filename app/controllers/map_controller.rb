@@ -1,6 +1,4 @@
 class MapController < UIViewController
-  include Controller
-
   TITLE = "WtfAmI?"
 
   def viewDidLoad
