@@ -3,6 +3,9 @@ class AppDelegate
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     UIApplication.sharedApplication.setStatusBarStyle(UIStatusBarStyleBlackOpaque)
+    UINavigationBar.appearance.setTintColor("#126116".to_color)
+    UIRefreshControl.appearance.setTintColor("#126116".to_color)
+
 
     slidingController = ECSlidingViewController.alloc.initWithNibName(nil, bundle: nil)
     slidingController.topViewController = RootController.alloc.initWithNibName(nil, bundle: nil)

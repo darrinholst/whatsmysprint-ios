@@ -10,8 +10,7 @@ class AllSprintsController < UITableViewController
     @refresh = UIRefreshControl.alloc.init
     @refresh.attributedTitle = NSAttributedString.alloc.initWithString("Pull to refresh")
     self.refreshControl = @refresh
-    self.refreshControl.tintColor = "#126116".to_color
-    self.refreshControl.addTarget(self, action: :loadData, forControlEvents:UIControlEventValueChanged)
+    self.refreshControl.addTarget(self, action: :loadData, forControlEvents: UIControlEventValueChanged)
   end
 
   def viewWillAppear(animated)

@@ -4,8 +4,9 @@ class RootController < UITabBarController
 
     self.viewControllers = [
       buildController(CurrentSprintController, "128-bone", 1),
-      buildController(AllSprintsController, "109-chicken", 2),
-      buildController(MapController, "82-dog-paw", 3)
+      buildController(IbCurrentSprintController, "76-baby", 2),
+      buildController(AllSprintsController, "109-chicken", 3),
+      buildController(MapController, "82-dog-paw", 4)
     ]
 
     self
@@ -34,17 +35,14 @@ class RootController < UITabBarController
     controller.navigationItem.setLeftBarButtonItem(menuButton)
 
     navController = UINavigationController.alloc.initWithRootViewController(controller)
-    navController.navigationBar.tintColor = "#126116".to_color
     navController.view.backgroundColor = "white".to_color
 
     navController
   end
 
   def menuButton
-    @menu_button ||= begin
-      image = UIImage.imageNamed("menu")
-      UIBarButtonItem.alloc.initWithImage(image, style: UIBarButtonItemStylePlain, target: self, action: "show_menu")
-    end
+    image = UIImage.imageNamed("menu")
+    UIBarButtonItem.alloc.initWithImage(image, style: UIBarButtonItemStylePlain, target: self, action: "show_menu")
   end
 
   def show_menu
