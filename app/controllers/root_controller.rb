@@ -1,6 +1,6 @@
 class RootController < UITabBarController
-  def init
-    self.initWithNibName(nil, bundle: nil)
+  def initWithNibName(name, bundle: bundle)
+    super
 
     self.viewControllers = [
       buildController(CurrentSprintController, "128-bone", 1),
@@ -20,7 +20,9 @@ class RootController < UITabBarController
     slidingViewController.setAnchorRightRevealAmount(180.0)
 
     unless slidingViewController.underLeftViewController.isKindOfClass(MenuController.class)
-      slidingViewController.underLeftViewController = MenuController.alloc.init
+      slidingViewController.underLeftViewController = MenuController.alloc.initWithCallback( -> {
+        slidingViewController.resetTopView
+      })
     end
   end
 

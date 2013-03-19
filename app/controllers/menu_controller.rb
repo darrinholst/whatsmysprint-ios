@@ -1,7 +1,8 @@
 class MenuController < UITableViewController
   REUSE_IDENTIFIER = "CELL_IDENTIFIER"
 
-  def init
+  def initWithCallback(completeCallback)
+    @completeCallback = completeCallback
     self.initWithNibName(nil, bundle: nil)
   end
 
@@ -25,5 +26,6 @@ class MenuController < UITableViewController
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
     tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    @completeCallback.call
   end
 end

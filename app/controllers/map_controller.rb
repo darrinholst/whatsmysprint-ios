@@ -11,6 +11,7 @@ class MapController < UIViewController
 
     @views_setup ||= begin
       map = MKMapView.alloc.initWithFrame(view.bounds)
+      map.mapType = MKMapTypeHybrid
       map.showsUserLocation = true
       map.delegate = self
       view.addSubview(map)

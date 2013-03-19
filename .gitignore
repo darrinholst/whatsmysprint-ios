@@ -1,5 +1,6 @@
 .repl_history
 build
+build-*
 tags
 app/pixate_code.rb
 resources/*.nib
@@ -14,3 +15,6 @@ nbproject
 .eprj
 .sass-cache
 .idea
+*.bridgesupport
+vendor/Pods
+
