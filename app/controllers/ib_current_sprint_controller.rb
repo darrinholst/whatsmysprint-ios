@@ -6,7 +6,7 @@ class IbCurrentSprintController < UIViewController
   outlet :starts_on_label, UILabel
   outlet :ends_on_label, UILabel
 
-  TITLE = "IB Current Sprint"
+  TITLE = "Current Sprint"
 
   def viewDidLoad
     super

@@ -3,8 +3,8 @@ class RootController < UITabBarController
     super
 
     self.viewControllers = [
-      buildController(CurrentSprintController, "128-bone", 1),
-      buildController(IbCurrentSprintController, "76-baby", 2),
+      #buildController(CurrentSprintController, "128-bone", 1),
+      buildController(IbCurrentSprintController, "128-bone", 2),
       buildController(AllSprintsController, "109-chicken", 3),
       buildController(MapController, "82-dog-paw", 4)
     ]

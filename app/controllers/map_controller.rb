@@ -4,6 +4,8 @@ class MapController < UIViewController
   def viewDidLoad
     super
     self.title = TITLE
+    someButton = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemCompose, target:self, action: "yo")
+    navigationItem.setRightBarButtonItem(someButton)
   end
 
   def viewWillAppear(animated)
@@ -45,5 +47,12 @@ class MapController < UIViewController
 
   def mapView(mapView, viewForOverlay: overlay)
     @parser.viewForOverlay(overlay)
+  end
+
+  def yo
+    modal = ModalViewController.alloc.initWithNibName(nil, bundle: nil)
+    navController = UINavigationController.alloc.initWithRootViewController(modal)
+    navController.setModalTransitionStyle(UIModalTransitionStyleFlipHorizontal)
+    presentViewController(navController, animated: true, completion: nil)
   end
 end

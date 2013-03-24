@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
-require File.join(File.expand_path(File.dirname(__FILE__)), "lib", "rake_override")
 require 'motion/project'
 require 'bundler'
 
-Bundler.require
+def running_specs?
+  ARGV.join(' ') =~ /spec/
+end
+
+def running_cukes?
+  ARGV.join(' ') =~ /frank/
+end
+
+if running_cukes? || running_specs?
+  Bundler.require :default, :test
+else
+  Bundler.require
+end
 
 Motion::Project::App.setup do |app|
   app.name = 'Wuz Ma Sprint'
@@ -15,18 +26,10 @@ Motion::Project::App.setup do |app|
     pod 'ECSlidingViewController'
   end
 
+  app.files << './spec/stubs/web_stubs.rb' if running_cukes?
+
+  p app.files
+
   app.vendor_project('vendor/KMLParser', :static)
 end
 
-namespace :spec do
-  override_task :simulator do
-    Bundler.require(:test)
-    Rake::Task["spec:simulator:original"].execute
-  end
-end
-
-desc "run the cucumber tests"
-task :cucumber do
-  Bundler.require(:test)
-  Rake::Task["frank:run"].execute
-end
